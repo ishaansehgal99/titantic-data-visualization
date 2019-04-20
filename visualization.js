@@ -1,7 +1,7 @@
 
 // Using jQuery, read our data and call visualize(...) only once the page is ready:
 $(function() {
-  d3.csv("uiuc-cleaned.csv").then(function(data) {
+  d3.csv("titanic-dataset.csv").then(function(data) {
     // Write the data to the console for debugging:
     console.log(data);
 
@@ -27,7 +27,7 @@ var visualize = function(data) {
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Visualization Code:
-  
+
   /*
   var xScale = d3.scaleLinear().domain([1980, 2018]).range([0, width]);
 
