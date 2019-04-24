@@ -29,7 +29,28 @@ var visualize = function(data) {
   // Visualization Code:
 
 
-  // var xScale = d3.scaleLinear().domain([1980, 2018]).range([0, width]);
+   var deckScale = d3.scalePoint()
+                     .domain(data.map(function (entry) {
+                       return entry['deck'];
+                     }))
+                     .rangeRound([0, height])
+                     .padding(0.1);
+
+    var idScale = d3.scaleLinear()
+                    .domain([0, 1309])
+                    .range([0, width]);
+
+  svg.selectAll("deck")
+     .data(data)
+     .enter()
+     .append("circle")
+     .attr("r", 5)
+     .attr("cy", function (d, i) {
+       return deckScale( d["deck"] );
+     })
+     .attr("cx", function (d, i) {
+       return idScale( d["PassengerId"] );
+     })
   //
   // var yScale = d3.scaleLinear().domain([0, 2000]).range([height, 0]);
   //
