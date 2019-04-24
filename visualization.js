@@ -37,7 +37,7 @@ var visualize = function(data) {
                      .padding(0.1);
 
     var idScale = d3.scaleLinear()
-                    .domain([0, 1309])
+                    .domain([0, 294])
                     .range([0, width]);
 
   svg.selectAll("deck")
