@@ -29,34 +29,53 @@ var visualize = function(data) {
 
   // Visualization Code:
 
+  const capitalize = (s) => {
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+
   var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
        var survived = (d['survived'] === "0")? "Died" : "Survived";
        return d['name'] + "<br>" +
-              d['age'] + " years old" + "<br>" +
-              d['sex'] + "<br>" +
-              survived;
+              d['age'] + " yrs - " + capitalize(d['sex']) + " - " + survived;
      });
    svg.call(tip);
 
   var deckFreq = new Map();
   data.forEach(function(d) {
     var currentDeck = d["deck"];
-    if (!deckFreq.hasOwnProperty(currentDeck))
-      deckFreq[currentDeck] = 0;
-    deckFreq[currentDeck]++;
+    if (currentDeck != "") {
+      if (!deckFreq.hasOwnProperty(currentDeck))
+        deckFreq[currentDeck] = 0;
+      deckFreq[currentDeck]++;
+    }
   });
-
-  console.log(deckFreq);
 
   var deckFreqCount = new Map();
   for (var i in deckFreq)
     deckFreqCount[i] = deckFreq[i];
 
+  var deckSurvivedCount = new Map();
+  for (var i in deckFreq) {
+    deckSurvivedCount[i] = 0;
+  }
+
+  var deckDiedCount = new Map();
+  for (var i in deckFreq) {
+    deckDiedCount[i] = 0;
+  }
+
+  var survivedScale = d3.scaleLinear()
+                        .domain([0, 200])
+                        .range([0, width / 2]);
+
+  var diedScale = d3.scaleLinear()
+                    .domain([0, 200])
+                    .range([width, width / 2]);                 
 
   var deckScale =
       d3.scalePoint()
           .domain(data.map(function(entry) { return entry['deck']; }))
-          .rangeRound([ 0, height / 8 ])
+          .rangeRound([ 0, height / 6 ])
           .padding(0.1);
 
 
@@ -66,21 +85,37 @@ var visualize = function(data) {
       .enter()
       .filter(function(d) { return d["deck"] != "" })
       .append("circle")
-      .attr("fill", "red")
-      .attr("r", 2)
+      .attr("fill", function(d, i) {
+        if (d["sex"] === "female") {
+          return "red";
+        } else {
+          return "blue";
+        }
+      })
+      .attr("r", 3)
       .attr("cy", function(d, i) { return deckScale(d["deck"]); })
       .attr("cx", function(d, i) {
 
         // d3.scaleLinear()
         // .domain(0, deckFreq[d["deck"]])
         // .range([0, width - 50]);
-        var res = d3.scaleLinear()
-        .domain([0, deckFreq[d["deck"]]-1])
-        .range([0, width - 20]);
+        // var res = d3.scaleLinear()
+        // .domain([0, deckFreq[d["deck"]]-1])
+        // .range([0, width - 20]);
 
-        var resCount = res( deckFreq[d["deck"]] - deckFreqCount[d["deck"]]  );
-        deckFreqCount[d["deck"]]--;
-        return resCount;
+        // var resCount = res( deckFreq[d["deck"]] - deckFreqCount[d["deck"]]  );
+        // deckFreqCount[d["deck"]]--;
+        // return resCount;
+
+        if (d["survived"] === "0") {
+          var res = diedScale(deckDiedCount[d["deck"]]);
+          deckDiedCount[d["deck"]] += 4;
+          return res;
+        } else {
+          var res = survivedScale(deckSurvivedCount[d["deck"]]);
+          deckSurvivedCount[d["deck"]] += 4;
+          return res;
+        }
       })
       .on("mouseover", function(d) {
          tip.direction('n');
