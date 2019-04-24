@@ -96,6 +96,28 @@ var visualize = function(data) {
   var survivedAgeRange = new Map();
   var deadAgeRange = new Map();
 
+  data.forEach(function(d) {
+    var startAge = (d["age"] - (d["age"] % 5));
+    var endAge = startAge + 5;
+    var ageRange = startAge + "-" + endAge;
+
+    if(d["survived"] == 0){
+      if (!deadAgeRange.hasOwnProperty(ageRange)){
+        deadAgeRange[ageRange] = 0;
+      }
+      deadAgeRange[ageRange]++;
+    }
+
+    else if(d["survived"] == 1){
+      if (!survivedAgeRange.hasOwnProperty(ageRange)){
+        survivedAgeRange[ageRange] = 0;
+      }
+      survivedAgeRange[ageRange]++;
+    }
+  });
+
+console.log(survivedAgeRange);
+console.log(deadAgeRange);
 
 
 
