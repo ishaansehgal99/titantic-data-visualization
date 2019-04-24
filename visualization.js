@@ -7,9 +7,75 @@ $(function() {
     console.log(data);
 
     // Call our visualize function:
+    drawGraph(data);
     visualize(data);
+
   });
 });
+
+var drawGraph = function(data){
+
+  var margin = {top : 50, right : 50, bottom : 50, left : 50},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+  var svg = d3.select("#graph")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .style("width", width + margin.left + margin.right)
+                .style("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform",
+                      "translate(" + margin.left + "," + margin.top + ")");
+
+
+  var xScale = d3.scaleLinear().range([0, width]);
+  var yScale = d3.scaleLinear().range([height, 0]);
+
+
+  var xAxis = d3.axisBottom()
+      .scale(xScale);
+
+  var yAxis = d3.axisLeft()
+      .scale(yScale)
+      .ticks(10);
+
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+
+    var survivedAgeRange = new Map();
+    var deadAgeRange = new Map();
+
+    data.forEach(function(d) {
+      var startAge = (d["age"] - (d["age"] % 5));
+      var endAge = startAge + 5;
+      var ageRange = startAge + "-" + endAge;
+
+      if(d["survived"] == 0){
+        if (!deadAgeRange.hasOwnProperty(ageRange)){
+          deadAgeRange[ageRange] = 0;
+        }
+        deadAgeRange[ageRange]++;
+      }
+
+      else if(d["survived"] == 1){
+        if (!survivedAgeRange.hasOwnProperty(ageRange)){
+          survivedAgeRange[ageRange] = 0;
+        }
+        survivedAgeRange[ageRange]++;
+      }
+    });
+
+    console.log(survivedAgeRange);
+}
 
 var visualize = function(data) {
   // Boilerplate:
@@ -89,41 +155,6 @@ var visualize = function(data) {
        .on("mouseout", function(d) {
          tip.hide(d, this);
        });
-
-
-
-
-  var survivedAgeRange = new Map();
-  var deadAgeRange = new Map();
-
-  data.forEach(function(d) {
-    var startAge = (d["age"] - (d["age"] % 5));
-    var endAge = startAge + 5;
-    var ageRange = startAge + "-" + endAge;
-
-    if(d["survived"] == 0){
-      if (!deadAgeRange.hasOwnProperty(ageRange)){
-        deadAgeRange[ageRange] = 0;
-      }
-      deadAgeRange[ageRange]++;
-    }
-
-    else if(d["survived"] == 1){
-      if (!survivedAgeRange.hasOwnProperty(ageRange)){
-        survivedAgeRange[ageRange] = 0;
-      }
-      survivedAgeRange[ageRange]++;
-    }
-  });
-
-console.log(survivedAgeRange);
-console.log(deadAgeRange);
-
-
-
-
-
-
 
 
 
