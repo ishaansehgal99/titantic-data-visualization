@@ -28,6 +28,16 @@ var visualize = function(data) {
                       "translate(" + margin.left + "," + margin.top + ")");
 
   // Visualization Code:
+
+  var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
+       var survived = (d['survived'] === "0")? "Died" : "Survived";
+       return d['name'] + "<br>" +
+              d['age'] + " years old" + "<br>" +
+              d['sex'] + "<br>" +
+              survived;
+     });
+   svg.call(tip);
+
   var deckFreq = new Map();
   data.forEach(function(d) {
     var currentDeck = d["deck"];
@@ -71,7 +81,14 @@ var visualize = function(data) {
         var resCount = res( deckFreq[d["deck"]] - deckFreqCount[d["deck"]]  );
         deckFreqCount[d["deck"]]--;
         return resCount;
-      });
+      })
+      .on("mouseover", function(d) {
+         tip.direction('n');
+         tip.show(d, this);
+       })
+       .on("mouseout", function(d) {
+         tip.hide(d, this);
+       });
 
 
 
