@@ -88,6 +88,8 @@ var visualize = function(data) {
 
 
 
+
+
   // var yScale = d3.scaleLinear().domain([0, 2000]).range([height, 0]);
   //
   // var yAxisLeftVariable = d3.axisLeft().scale(yScale);
