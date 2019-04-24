@@ -33,7 +33,7 @@ var visualize = function(data) {
                      .domain(data.map(function (entry) {
                        return entry['deck'];
                      }))
-                     .rangeRound([0, height])
+                     .rangeRound([0, height/10])
                      .padding(0.1);
 
     var idScale = d3.scaleLinear()
@@ -44,7 +44,8 @@ var visualize = function(data) {
      .data(data)
      .enter()
      .append("circle")
-     .attr("r", 5)
+     .attr("fill", "red")
+     .attr("r", 1)
      .attr("cy", function (d, i) {
        return deckScale( d["deck"] );
      })
