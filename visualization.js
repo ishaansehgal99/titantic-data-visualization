@@ -28,9 +28,6 @@ var visualize = function(data) {
                       "translate(" + margin.left + "," + margin.top + ")");
 
   // Visualization Code:
-
-
-
   var deckFreq = new Map();
   data.forEach(function(d) {
     var currentDeck = d["deck"];
@@ -51,15 +48,6 @@ var visualize = function(data) {
           .domain(data.map(function(entry) { return entry['deck']; }))
           .rangeRound([ 0, height / 8 ])
           .padding(0.1);
-
-
-  // var idScale = function(dataLen){
-  //                 var result = d3.scaleLinear()
-  //                 .domain(0, dataLen)
-  //                 .range([0, width - 50]);
-  //                 return result;
-  //               }
-
 
 
 
@@ -83,8 +71,23 @@ var visualize = function(data) {
         var resCount = res( deckFreq[d["deck"]] - deckFreqCount[d["deck"]]  );
         deckFreqCount[d["deck"]]--;
         return resCount;
-      })
-  //
+      });
+
+
+
+
+  var survivedAgeRange = new Map();
+  var deadAgeRange = new Map();
+
+
+
+
+
+
+
+
+
+
   // var yScale = d3.scaleLinear().domain([0, 2000]).range([height, 0]);
   //
   // var yAxisLeftVariable = d3.axisLeft().scale(yScale);
