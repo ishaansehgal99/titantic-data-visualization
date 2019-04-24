@@ -13,22 +13,22 @@ $(function() {
 
 var visualize = function(data) {
   // Boilerplate:
-  // var margin = { top: 50, right: 50, bottom: 50, left: 50 },
-  //    width = 960 - margin.left - margin.right,
-  //    height = 500 - margin.top - margin.bottom;
-  //
-  // var svg = d3.select("#chart")
-  //   .append("svg")
-  //   .attr("width", width + margin.left + margin.right)
-  //   .attr("height", height + margin.top + margin.bottom)
-  //   .style("width", width + margin.left + margin.right)
-  //   .style("height", height + margin.top + margin.bottom)
-  //   .append("g")
-  //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  var margin = { top: 50, right: 50, bottom: 50, left: 50 },
+     width = 960 - margin.left - margin.right,
+     height = 500 - margin.top - margin.bottom;
+
+  var svg = d3.select("#chart")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .style("width", width + margin.left + margin.right)
+    .style("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Visualization Code:
 
-  /*
+
   var xScale = d3.scaleLinear().domain([1980, 2018]).range([0, width]);
 
   var yScale = d3.scaleLinear().domain([0, 2000]).range([height, 0]);
@@ -44,10 +44,10 @@ var visualize = function(data) {
     .attr("class", "y axis")
     .call(yAxisRightVariable);
 
-  svg.selectAll("Fall").
+  svg.selectAll("Fall")
      .data(data)
      .enter()
      .append("line")
-  */
+
 
 };
