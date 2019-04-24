@@ -30,7 +30,7 @@ var visualize = function(data) {
   // Visualization Code:
 
   var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
-      var survived = (data['survived'] == "0")? "Died" : "Survived";
+      var survived = (d['survived'] === "0")? "Died" : "Survived";
       return d['name'] + "<br>" +
              d['age'] + " years old" + "<br>" +
              d['sex'] + "<br>" +
