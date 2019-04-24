@@ -29,25 +29,25 @@ var visualize = function(data) {
   // Visualization Code:
 
 
-  var xScale = d3.scaleLinear().domain([1980, 2018]).range([0, width]);
-
-  var yScale = d3.scaleLinear().domain([0, 2000]).range([height, 0]);
-
-  var yAxisLeftVariable = d3.axisLeft().scale(yScale);
-  var yAxisRightVariable = d3.axisRight().scale(yScale);
-
-  svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxisLeftVariable);
-
-  svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxisRightVariable);
-
-  svg.selectAll("Fall")
-     .data(data)
-     .enter()
-     .append("line")
+  // var xScale = d3.scaleLinear().domain([1980, 2018]).range([0, width]);
+  //
+  // var yScale = d3.scaleLinear().domain([0, 2000]).range([height, 0]);
+  //
+  // var yAxisLeftVariable = d3.axisLeft().scale(yScale);
+  // var yAxisRightVariable = d3.axisRight().scale(yScale);
+  //
+  // svg.append("g")
+  //   .attr("class", "y axis")
+  //   .call(yAxisLeftVariable);
+  //
+  // svg.append("g")
+  //   .attr("class", "y axis")
+  //   .call(yAxisRightVariable);
+  //
+  // svg.selectAll("Fall")
+  //    .data(data)
+  //    .enter()
+  //    .append("line")
 
 
 };
