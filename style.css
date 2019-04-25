@@ -54,12 +54,6 @@ body{
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-
-   background: linear-gradient(to left top, rgba(207, 20, 43, 0.9), rgba(0, 36, 125, 0.9)) fixed !important;
-   background: -webkit-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
-   background: -moz-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
-   background: -ms-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
-   background: -o-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
 }
 
 

@@ -7,13 +7,54 @@ $(function() {
     console.log(data);
 
     // Call our visualize function:
-    drawGraph(data);
+    // drawGraph(data);
     visualize(data);
+
+
+
+    function changeDisplay() {
+      var displayRadioValue = $("input[name='options']:checked").val();
+      if (displayRadioValue === "chart") {
+        clearGraph();
+        visualize(data);
+      } else {
+        var graphRadioValue = $("input[name='graph-data']:checked").val();
+        clearChart();
+        drawGraph(data, graphRadioValue);
+      }
+    }
+
+    $("input[name='options']").on("change", changeDisplay);
+
+
+    function changeGraph() {
+      var graphRadioValue = $("input[name='graph-data']:checked").val();
+      var displayRadioValue = $("input[name='options']:checked").val();
+      if (displayRadioValue === "graph") {
+        clearGraph();
+        drawGraph(data, graphRadioValue);
+      }
+    }
+
+    $("input[name='graph-data']").on("change", changeGraph);
 
   });
 });
 
-var drawGraph = function(data){
+
+var clearGraph = function() {
+  d3.select("#graph")
+    .selectAll("svg")
+    .remove();
+}
+
+var clearChart = function() {
+  d3.select("#chart")
+    .selectAll("svg")
+    .remove();
+}
+
+var drawGraph = function(data, type){
 
   var margin = {top : 50, right : 50, bottom : 50, left : 10},
       width = 960 - margin.left - margin.right,
