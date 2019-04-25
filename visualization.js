@@ -44,25 +44,50 @@ var clearChart = function() { d3.select("#chart").selectAll("svg").remove(); }
 
 var drawGraph =
     function(data, type) {
-  var margin = {top : 50, right : 50, bottom : 50, left : 25},
-      width = 960 - margin.left - margin.right,
+  var margin = {top : 50, right : 100, bottom : 50, left : 50},
+      width = 1000 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
+
+  // append the svg object to the body of the page
+  // append a 'group' element to 'svg'
+  // moves the 'group' element to the top left margin
+  var svg = d3.select("#graph")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform",
+                      "translate(" + margin.left + "," + margin.top + ")");
+
+  // Legend
+  svg.append("rect")
+    .attr("x", 850)
+    .attr("y", 20)
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("fill", "#1a1a1d");
+
+  svg.append("text")
+    .attr("x", 880)
+    .attr("y", 36)
+    .text("Survived");
+
+  svg.append("rect")
+    .attr("x", 850)
+    .attr("y", 50)
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("fill", "#c3073f");
+
+  svg.append("text")
+    .attr("x", 880)
+    .attr("y", 66)
+    .text("Died");
 
   if (type == "age") {
     // set the ranges
     var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
     var y = d3.scaleLinear().range([ height, 0 ]);
-
-    // append the svg object to the body of the page
-    // append a 'group' element to 'svg'
-    // moves the 'group' element to the top left margin
-    var svg = d3.select("#graph")
-                  .append("svg")
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform",
-                        "translate(" + margin.left + "," + margin.top + ")");
 
     var survivedAgeRange = new Map();
     var deadAgeRange = new Map();
@@ -97,6 +122,20 @@ var drawGraph =
     // Scale the range of the data in the domains
     x.domain(keys);
     y.domain([ 0, d3.max(keys, function(d) { return deadAgeRange[d]; }) ]);
+
+    svg.append("text")      // text label for the x axis
+        .attr("x", width / 2 )
+        .attr("y",  height + margin.bottom - 10 )
+        .style("text-anchor", "middle")
+        .text("Age Group");
+
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2) - 20)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("# People");
 
     // append the rectangles for the bar chart
     svg.selectAll(".bar")
@@ -142,17 +181,6 @@ var drawGraph =
     var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
     var y = d3.scaleLinear().range([ height, 0 ]);
 
-    // append the svg object to the body of the page
-    // append a 'group' element to 'svg'
-    // moves the 'group' element to the top left margin
-    var svg = d3.select("#graph")
-                  .append("svg")
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform",
-                        "translate(" + margin.left + "," + margin.top + ")");
-
     var survivedGender = new Map();
     var deadGender = new Map();
 
@@ -181,6 +209,21 @@ var drawGraph =
     // Scale the range of the data in the domains
     x.domain(keys);
     y.domain([ 0, d3.max(keys, function(d) { return deadGender[d]; }) ]);
+
+
+    svg.append("text")      // text label for the x axis
+        .attr("x", width / 2 )
+        .attr("y",  height + margin.bottom - 10 )
+        .style("text-anchor", "middle")
+        .text("Gender");
+
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2) - 20)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("# People");
 
     // append the rectangles for the bar chart
     svg.selectAll(".bar")
@@ -226,17 +269,6 @@ var drawGraph =
     var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
     var y = d3.scaleLinear().range([ height, 0 ]);
 
-    // append the svg object to the body of the page
-    // append a 'group' element to 'svg'
-    // moves the 'group' element to the top left margin
-    var svg = d3.select("#graph")
-                  .append("svg")
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform",
-                        "translate(" + margin.left + "," + margin.top + ")");
-
     var familySizeSurvived = new Map();
     var familySizeDied = new Map();
 
@@ -262,6 +294,20 @@ var drawGraph =
     // Scale the range of the data in the domains
     x.domain(keys);
     y.domain([ 0, d3.max(keys, function(d) { return familySizeDied[d]; }) ]);
+
+    svg.append("text")      // text label for the x axis
+        .attr("x", width / 2 )
+        .attr("y",  height + margin.bottom - 10 )
+        .style("text-anchor", "middle")
+        .text("Family Size");
+
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2) - 20)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("# People");
 
     // append the rectangles for the bar chart
     svg.selectAll(".bar")
@@ -307,17 +353,6 @@ var drawGraph =
     var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
     var y = d3.scaleLinear().range([ height, 0 ]);
 
-    // append the svg object to the body of the page
-    // append a 'group' element to 'svg'
-    // moves the 'group' element to the top left margin
-    var svg = d3.select("#graph")
-                  .append("svg")
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform",
-                        "translate(" + margin.left + "," + margin.top + ")");
-
     var classSurvived = new Map();
     var classDied = new Map();
 
@@ -343,6 +378,20 @@ var drawGraph =
     // Scale the range of the data in the domains
     x.domain(keys);
     y.domain([ 0, d3.max(keys, function(d) { return classDied[d]; }) ]);
+
+    svg.append("text")      // text label for the x axis
+        .attr("x", width / 2 )
+        .attr("y",  height + margin.bottom - 10 )
+        .style("text-anchor", "middle")
+        .text("Class");
+
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2) - 20)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("# People");
 
     // append the rectangles for the bar chart
     svg.selectAll(".bar")
