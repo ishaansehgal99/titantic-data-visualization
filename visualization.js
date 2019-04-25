@@ -38,15 +38,12 @@ $(function() {
   });
 });
 
-var clearGraph = function() {
-  d3.select("#graph").selectAll("*").remove();
-}
+var clearGraph = function() { d3.select("#graph").selectAll("*").remove(); }
 
-var clearChart = function() {
-  d3.select("#chart").selectAll("svg").remove();
-}
+var clearChart = function() { d3.select("#chart").selectAll("svg").remove(); }
 
-var drawGraph = function(data, type) {
+var drawGraph =
+    function(data, type) {
   var margin = {top : 50, right : 50, bottom : 50, left : 25},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
@@ -71,7 +68,7 @@ var drawGraph = function(data, type) {
     var deadAgeRange = new Map();
 
     data.forEach(function(d) {
-      if(d["age"] != ""){
+      if (d["age"] != "") {
         var startAge = (d["age"] - (d["age"] % 5));
         var endAge = startAge + 5;
         var ageRange = startAge + "-" + endAge;
@@ -191,8 +188,7 @@ var drawGraph = function(data, type) {
         .attr("x", function(d) { return x(d); })
         .attr("width", x.bandwidth())
         .attr("y", function(d) { return y(survivedGender[d]); })
-        .attr("height",
-              function(d) { return height - y(survivedGender[d]); });
+        .attr("height", function(d) { return height - y(survivedGender[d]); });
 
     // add the x Axis
     svg.append("g")
@@ -222,7 +218,6 @@ var drawGraph = function(data, type) {
   }
 
   if (type == "family") {
-
 
     // set the ranges
     var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
@@ -259,8 +254,7 @@ var drawGraph = function(data, type) {
       }
     });
 
-
-    let keys = [ "0", "1", "2", "3", "4", "5", "6", "7", "10"];
+    let keys = [ "0", "1", "2", "3", "4", "5", "6", "7", "10" ];
 
     // Scale the range of the data in the domains
     x.domain(keys);
@@ -303,10 +297,7 @@ var drawGraph = function(data, type) {
 
     // add the y Axis
     svg.append("g").call(d3.axisLeft(y));
-
-
   }
-
 
   if (type == "class") {
     // set the ranges
@@ -344,7 +335,7 @@ var drawGraph = function(data, type) {
       }
     });
 
-    let keys = [ "1", "2", "3"];
+    let keys = [ "1", "2", "3" ];
 
     // Scale the range of the data in the domains
     x.domain(keys);
@@ -359,8 +350,7 @@ var drawGraph = function(data, type) {
         .attr("x", function(d) { return x(d); })
         .attr("width", x.bandwidth())
         .attr("y", function(d) { return y(classSurvived[d]); })
-        .attr("height",
-              function(d) { return height - y(classSurvived[d]); });
+        .attr("height", function(d) { return height - y(classSurvived[d]); });
 
     // add the x Axis
     svg.append("g")
@@ -387,7 +377,6 @@ var drawGraph = function(data, type) {
 
     // add the y Axis
     svg.append("g").call(d3.axisLeft(y));
-
   }
 }
 
