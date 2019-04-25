@@ -1,8 +1,15 @@
+@font-face {
+  font-family: oldTimeFont;
+  src: url(Carnevalee-Freakshow.ttf);
+}
+
+
 
 html, body{
   width:100%;
   height:100%;
   color: #231f20;
+  font-family: oldTimeFont;
 }
 
 
@@ -47,11 +54,11 @@ html, body{
 
 body{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight:bold;
+  font-weight:bold;
   margin-top:50px;
   padding:0;
 
-  background: #fffcf9 url("ricepaper.jpg");
+  background: #fffcf9 url("ricepaperbac.jpg");
   background-size: 300px 300px;
   background-repeat: repeat;
   line-height: 1.42857143;
@@ -60,15 +67,37 @@ body{
 
 }
 
-.survived{
-  fill: rgb(186, 135, 1);
-  opacity: 0.9;
+.progress{
+  margin-top: -40px;
+}
 
+.progress-bar-1{
+    opacity: .8;
+  background-color: #1a1a1d;
+}
+.progress-bar-2{
+  background-color: #c3073f;
+  opacity: 0.9;
+}
+
+
+.jumbotron{
+  margin-top: -40px;
+  text-align:center;
+  font-family: serif;
+  background:none;
+}
+
+.survived{
+  /* fill: rgb(250, 180, 164); */
+  fill: #1a1a1d;
+  opacity: 0.9;
 }
 
 .died{
-  fill: rgb(133, 13, 18);
-  opacity: 0.6;
+
+    fill: #c3073f;
+  opacity: .8;
 
 }
 
@@ -95,13 +124,13 @@ circle {
 h1{
   margin-top:10px;
   text-align: center;
-  font-family: Portrait;
+  font-family: oldTimeFont;
   font-weight:800;
   font-size: 4em;
 
 }
 
-img {
+.titanicImg img {
   opacity:0.4;
   width: 100%;
   height: auto;
@@ -141,4 +170,72 @@ img {
     top: 100%;
     left: 0;
     text-align: center
+}
+
+
+
+h3{
+  text-align: center;
+}
+
+
+.bars{
+  height: 30px;
+  max-width: 930px;
+  margin: 0 auto 10px auto;
+  line-height: 30px;
+  font-size: 16px;
+  color: white;
+  padding: 0 0 0 10px;
+  position: relative;
+}
+.bars::before{
+  content: '';
+  width: 100%;
+  position: absolute;
+  left: 0;
+  height: 30px;
+  top: 0;
+  z-index: -2;
+  background: white;
+}
+.bars::after{
+  content: '';
+  background: rgb(250, 180, 164);
+  height: 30px;
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+
+.float-left {
+    float: left;
+}
+.card {
+    box-shadow: 0 0 0 1px #231f20, inset 0 0 0 1px #231f20;
+    padding: 1.42857143rem;
+    font-weight: 400;
+}
+.ad {
+    text-align: center;
+}
+
+
+.card-special-border {
+    position: relative;
+    height: 100%;
+    border: 3px solid;
+    padding: 1.42857143rem;
+    -o-border-image: url("outline.svg") 32 round;
+    border-image: url("outline.svg") 32 round;
+}
+
+
+.footer{
+  margin-top: 500px;
+
 }

@@ -421,21 +421,21 @@ var visualize = function(data) {
   for (var i in deckFreq)
     deckFreqCount[i] = deckFreq[i];
 
-  var deckSurvivedCount = new Map();
-  for (var i in deckFreq) {
-    deckSurvivedCount[i] = 0;
-  }
+  // var deckSurvivedCount = new Map();
+  // for (var i in deckFreq) {
+  //   deckSurvivedCount[i] = 0;
+  // }
+  //
+  // var deckDiedCount = new Map();
+  // for (var i in deckFreq) {
+  //   deckDiedCount[i] = 0;
+  // }
 
-  var deckDiedCount = new Map();
-  for (var i in deckFreq) {
-    deckDiedCount[i] = 0;
-  }
-
-  var survivedScale =
-      d3.scaleLinear().domain([ 0, 200 ]).range([ 0, width / 2 ]);
-
-  var diedScale =
-      d3.scaleLinear().domain([ 0, 200 ]).range([ width, width / 2 ]);
+  // var survivedScale =
+  //     d3.scaleLinear().domain([ 0, 200 ]).range([ 0, width / 2 ]);
+  //
+  // var diedScale =
+  //     d3.scaleLinear().domain([ 0, 200 ]).range([ width, width / 2 ]);
 
   var deckScale =
       d3.scalePoint()
@@ -460,26 +460,27 @@ var visualize = function(data) {
       .attr("cy", function(d, i) { return deckScale(d["deck"]); })
       .attr("cx",
             function(d, i) {
-              // d3.scaleLinear()
-              // .domain(0, deckFreq[d["deck"]])
-              // .range([0, width - 50]);
-              // var res = d3.scaleLinear()
-              // .domain([0, deckFreq[d["deck"]]-1])
-              // .range([0, width - 20]);
+              d3.scaleLinear()
+              .domain(0, deckFreq[d["deck"]])
+              .range([0, width - 20]);
+              var res = d3.scaleLinear()
+              .domain([0, deckFreq[d["deck"]]-1])
+              .range([0, width - 20]);
 
-              // var resCount = res( deckFreq[d["deck"]] -
-              // deckFreqCount[d["deck"]]  ); deckFreqCount[d["deck"]]--; return
-              // resCount;
+              var resCount = res( deckFreq[d["deck"]] - deckFreqCount[d["deck"]]  );
+               deckFreqCount[d["deck"]]--;
+               return resCount;
 
-              if (d["survived"] === "0") {
-                var res = diedScale(deckDiedCount[d["deck"]]);
-                deckDiedCount[d["deck"]] += 4;
-                return res;
-              } else {
-                var res = survivedScale(deckSurvivedCount[d["deck"]]);
-                deckSurvivedCount[d["deck"]] += 4;
-                return res;
-              }
+
+              // if (d["survived"] === "0") {
+              //   var res = diedScale(deckDiedCount[d["deck"]]);
+              //   deckDiedCount[d["deck"]] += 4;
+              //   return res;
+              // } else {
+              //   var res = survivedScale(deckSurvivedCount[d["deck"]]);
+              //   deckSurvivedCount[d["deck"]] += 4;
+              //   return res;
+              // }
             })
       .on("mouseover",
           function(d) {
