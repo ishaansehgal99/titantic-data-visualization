@@ -10,8 +10,6 @@ $(function() {
     // drawGraph(data);
     visualize(data);
 
-
-
     function changeDisplay() {
       var displayRadioValue = $("input[name='options']:checked").val();
       if (displayRadioValue === "chart") {
@@ -27,7 +25,6 @@ $(function() {
 
     $("input[name='options']").on("change", changeDisplay);
 
-
     function changeGraph() {
       var graphRadioValue = $("input[name='graph-data']:checked").val();
       var displayRadioValue = $("input[name='options']:checked").val();
@@ -38,117 +35,194 @@ $(function() {
     }
 
     $("input[name='graph-data']").on("change", changeGraph);
-
   });
 });
 
-
 var clearGraph = function() {
-  d3.select("#graph")
-    .selectAll("*")
-    .remove();
+  d3.select("#graph").selectAll("*").remove();
 }
 
 var clearChart = function() {
-  d3.select("#chart")
-    .selectAll("svg")
-    .remove();
+  d3.select("#chart").selectAll("svg").remove();
 }
 
-var drawGraph = function(data, type){
-
-  var margin = {top : 50, right : 50, bottom : 50, left : 10},
+var drawGraph = function(data, type) {
+  var margin = {top : 50, right : 50, bottom : 50, left : 25},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
-  // set the ranges
-  var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
-  var y = d3.scaleLinear().range([ height, 0 ]);
+  if (type == "age") {
+    // set the ranges
+    var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
+    var y = d3.scaleLinear().range([ height, 0 ]);
 
-  // append the svg object to the body of the page
-  // append a 'group' element to 'svg'
-  // moves the 'group' element to the top left margin
-  var svg = d3.select("#graph")
-                .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform",
-                      "translate(" + margin.left + "," + margin.top + ")");
+    // append the svg object to the body of the page
+    // append a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    var svg = d3.select("#graph")
+                  .append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform",
+                        "translate(" + margin.left + "," + margin.top + ")");
 
-  var survivedAgeRange = new Map();
-  var deadAgeRange = new Map();
+    var survivedAgeRange = new Map();
+    var deadAgeRange = new Map();
 
-  data.forEach(function(d) {
-    var startAge = (d["age"] - (d["age"] % 5));
-    var endAge = startAge + 5;
-    var ageRange = startAge + "-" + endAge;
+    data.forEach(function(d) {
+      var startAge = (d["age"] - (d["age"] % 5));
+      var endAge = startAge + 5;
+      var ageRange = startAge + "-" + endAge;
 
-    if (d["survived"] == 0) {
-      if (!deadAgeRange.hasOwnProperty(ageRange)) {
-        deadAgeRange[ageRange] = 0;
+      if (d["survived"] == 0) {
+        if (!deadAgeRange.hasOwnProperty(ageRange)) {
+          deadAgeRange[ageRange] = 0;
+        }
+        deadAgeRange[ageRange]++;
       }
-      deadAgeRange[ageRange]++;
-    }
 
-    else if (d["survived"] == 1) {
-      if (!survivedAgeRange.hasOwnProperty(ageRange)) {
-        survivedAgeRange[ageRange] = 0;
+      else if (d["survived"] == 1) {
+        if (!survivedAgeRange.hasOwnProperty(ageRange)) {
+          survivedAgeRange[ageRange] = 0;
+        }
+        survivedAgeRange[ageRange]++;
       }
-      survivedAgeRange[ageRange]++;
-    }
-  });
+    });
 
-  let keys = [
-    "0-5", "5-10", "10-15", "15-20", "20-25", "25-30", "30-35", "35-40", "40-45",
-    "45-50", "50-55", "55-60", "60-65", "65-70", "70-75", "80-85"
-  ];
+    let keys = [
+      "0-5", "5-10", "10-15", "15-20", "20-25", "25-30", "30-35", "35-40",
+      "40-45", "45-50", "50-55", "55-60", "60-65", "65-70", "70-75", "80-85"
+    ];
 
-  // Scale the range of the data in the domains
-  x.domain(keys);
-  y.domain([ 0, d3.max(keys, function(d) { return deadAgeRange[d]; })]);
+    // Scale the range of the data in the domains
+    x.domain(keys);
+    y.domain([ 0, d3.max(keys, function(d) { return deadAgeRange[d]; }) ]);
 
-  // append the rectangles for the bar chart
-  svg.selectAll(".bar")
-      .data(keys)
-      .enter()
-      .append("rect")
-      .attr("class", "survived")
-      .attr("x",  function(d){ return x(d); })
-      .attr("width", x.bandwidth())
-      .attr("y", function(d){ return y(survivedAgeRange[d]); })
-      .attr("height", function(d){ return height - y(survivedAgeRange[d]); });
+    // append the rectangles for the bar chart
+    svg.selectAll(".bar")
+        .data(keys)
+        .enter()
+        .append("rect")
+        .attr("class", "survived")
+        .attr("x", function(d) { return x(d); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(survivedAgeRange[d]); })
+        .attr("height",
+              function(d) { return height - y(survivedAgeRange[d]); });
 
-  // add the x Axis
-  svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
 
-  // add the y Axis
-  svg.append("g").call(d3.axisLeft(y));
+    // add the y Axis
+    svg.append("g").call(d3.axisLeft(y));
 
+    svg.selectAll(".bar")
+        .data(keys)
+        .enter()
+        .append("rect")
+        .attr("class", "died")
+        .attr("x", function(d) { return x(d); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(deadAgeRange[d]); })
+        .attr("height", function(d) { return height - y(deadAgeRange[d]); });
 
-  svg.selectAll(".bar")
-      .data(keys)
-      .enter()
-      .append("rect")
-      .attr("class", "died")
-      .attr("x",  function(d){ return x(d); })
-      .attr("width", x.bandwidth())
-      .attr("y", function(d){ return y(deadAgeRange[d]); })
-      .attr("height", function(d){ return height - y(deadAgeRange[d]); });
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
 
-  // add the x Axis
-  svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+    // add the y Axis
+    svg.append("g").call(d3.axisLeft(y));
+  }
 
-  // add the y Axis
-  svg.append("g").call(d3.axisLeft(y));
+  if (type == "gender") {
+    // set the ranges
+    var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
+    var y = d3.scaleLinear().range([ height, 0 ]);
 
+    // append the svg object to the body of the page
+    // append a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    var svg = d3.select("#graph")
+                  .append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform",
+                        "translate(" + margin.left + "," + margin.top + ")");
 
+    var survivedGender = new Map();
+    var deadGender = new Map();
 
+    data.forEach(function(d) {
+      var gender = d["sex"];
+      if (d["survived"] == 0) {
+        if (!deadGender.hasOwnProperty(gender)) {
+          deadGender[gender] = 0;
+        }
+        deadGender[gender]++;
+      }
 
+      else if (d["survived"] == 1) {
+        if (!survivedGender.hasOwnProperty(gender)) {
+          survivedGender[gender] = 0;
+        }
+        survivedGender[gender]++;
+      }
+    });
+
+    let keys = [ "male", "female" ];
+
+    // Scale the range of the data in the domains
+    x.domain(keys);
+    y.domain([ 0, d3.max(keys, function(d) { return deadGender[d]; }) ]);
+
+    // append the rectangles for the bar chart
+    svg.selectAll(".bar")
+        .data(keys)
+        .enter()
+        .append("rect")
+        .attr("class", "survived")
+        .attr("x", function(d) { return x(d); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(survivedGender[d]); })
+        .attr("height",
+              function(d) { return height - y(survivedGender[d]); });
+
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // add the y Axis
+    svg.append("g").call(d3.axisLeft(y));
+
+    svg.selectAll(".bar")
+        .data(keys)
+        .enter()
+        .append("rect")
+        .attr("class", "died")
+        .attr("x", function(d) { return x(d); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(deadGender[d]); })
+        .attr("height", function(d) { return height - y(deadGender[d]); });
+
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // add the y Axis
+    svg.append("g").call(d3.axisLeft(y));
+  }
+
+  if (type == "family") {
+    
+
+  }
 }
 
 var visualize = function(data) {
