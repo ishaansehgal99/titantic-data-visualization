@@ -173,6 +173,9 @@ var drawGraph =
       }
     });
 
+    console.log(survivedGender);
+    console.log(deadGender);
+
     let keys = [ "male", "female" ];
 
     // Scale the range of the data in the domains

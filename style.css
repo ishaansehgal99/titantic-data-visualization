@@ -73,10 +73,12 @@ body{
 
 .progress-bar-1{
     opacity: .8;
-  background-color: #1a1a1d;
+    background-color: #c3073f;
+
 }
 .progress-bar-2{
-  background-color: #c3073f;
+
+  background-color: #1a1a1d;
   opacity: 0.9;
 }
 
@@ -95,8 +97,8 @@ body{
 }
 
 .died{
+  fill: #c3073f;
 
-    fill: #c3073f;
   opacity: .8;
 
 }
