@@ -71,22 +71,24 @@ var drawGraph = function(data, type) {
     var deadAgeRange = new Map();
 
     data.forEach(function(d) {
-      var startAge = (d["age"] - (d["age"] % 5));
-      var endAge = startAge + 5;
-      var ageRange = startAge + "-" + endAge;
+      if(d["age"] != ""){
+        var startAge = (d["age"] - (d["age"] % 5));
+        var endAge = startAge + 5;
+        var ageRange = startAge + "-" + endAge;
 
-      if (d["survived"] == 0) {
-        if (!deadAgeRange.hasOwnProperty(ageRange)) {
-          deadAgeRange[ageRange] = 0;
+        if (d["survived"] == 0) {
+          if (!deadAgeRange.hasOwnProperty(ageRange)) {
+            deadAgeRange[ageRange] = 0;
+          }
+          deadAgeRange[ageRange]++;
         }
-        deadAgeRange[ageRange]++;
-      }
 
-      else if (d["survived"] == 1) {
-        if (!survivedAgeRange.hasOwnProperty(ageRange)) {
-          survivedAgeRange[ageRange] = 0;
+        else if (d["survived"] == 1) {
+          if (!survivedAgeRange.hasOwnProperty(ageRange)) {
+            survivedAgeRange[ageRange] = 0;
+          }
+          survivedAgeRange[ageRange]++;
         }
-        survivedAgeRange[ageRange]++;
       }
     });
 
@@ -220,7 +222,8 @@ var drawGraph = function(data, type) {
   }
 
   if (type == "family") {
-    
+
+
 
   }
 }

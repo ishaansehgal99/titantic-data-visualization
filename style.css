@@ -61,13 +61,15 @@ body{
 }
 
 .survived{
-  fill: rgb(17, 8, 140);
-  opacity:.9;
+  fill: rgb(186, 135, 1);
+  opacity: 0.9;
+
 }
 
 .died{
-  fill: rgb(0, 0, 0);
-  opacity:.6;
+  fill: rgb(133, 13, 18);
+  opacity: 0.6;
+
 }
 
 #chart{
@@ -100,7 +102,7 @@ h1{
 }
 
 img {
-  opacity: 0.3;
+  opacity:0.4;
   width: 100%;
   height: auto;
   display: block;
