@@ -224,6 +224,169 @@ var drawGraph = function(data, type) {
   if (type == "family") {
 
 
+    // set the ranges
+    var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
+    var y = d3.scaleLinear().range([ height, 0 ]);
+
+    // append the svg object to the body of the page
+    // append a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    var svg = d3.select("#graph")
+                  .append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform",
+                        "translate(" + margin.left + "," + margin.top + ")");
+
+    var familySizeSurvived = new Map();
+    var familySizeDied = new Map();
+
+    data.forEach(function(d) {
+      var famSize = parseInt(d["sibsp"]) + parseInt(d["parch"]);
+      if (d["survived"] == 0) {
+        if (!familySizeDied.hasOwnProperty(famSize)) {
+          familySizeDied[famSize] = 0;
+        }
+        familySizeDied[famSize]++;
+      }
+
+      else if (d["survived"] == 1) {
+        if (!familySizeSurvived.hasOwnProperty(famSize)) {
+          familySizeSurvived[famSize] = 0;
+        }
+        familySizeSurvived[famSize]++;
+      }
+    });
+
+
+    let keys = [ "0", "1", "2", "3", "4", "5", "6", "7", "10"];
+
+    // Scale the range of the data in the domains
+    x.domain(keys);
+    y.domain([ 0, d3.max(keys, function(d) { return familySizeDied[d]; }) ]);
+
+    // append the rectangles for the bar chart
+    svg.selectAll(".bar")
+        .data(keys)
+        .enter()
+        .append("rect")
+        .attr("class", "survived")
+        .attr("x", function(d) { return x(d); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(familySizeSurvived[d]); })
+        .attr("height",
+              function(d) { return height - y(familySizeSurvived[d]); });
+
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // add the y Axis
+    svg.append("g").call(d3.axisLeft(y));
+
+    svg.selectAll(".bar")
+        .data(keys)
+        .enter()
+        .append("rect")
+        .attr("class", "died")
+        .attr("x", function(d) { return x(d); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(familySizeDied[d]); })
+        .attr("height", function(d) { return height - y(familySizeDied[d]); });
+
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // add the y Axis
+    svg.append("g").call(d3.axisLeft(y));
+
+
+  }
+
+
+  if (type == "class") {
+    // set the ranges
+    var x = d3.scaleBand().range([ 0, width ]).padding(0.1);
+    var y = d3.scaleLinear().range([ height, 0 ]);
+
+    // append the svg object to the body of the page
+    // append a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    var svg = d3.select("#graph")
+                  .append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform",
+                        "translate(" + margin.left + "," + margin.top + ")");
+
+    var classSurvived = new Map();
+    var classDied = new Map();
+
+    data.forEach(function(d) {
+      var pclass = d["pclass"];
+      if (d["survived"] == 0) {
+        if (!classDied.hasOwnProperty(pclass)) {
+          classDied[pclass] = 0;
+        }
+        classDied[pclass]++;
+      }
+
+      else if (d["survived"] == 1) {
+        if (!classSurvived.hasOwnProperty(pclass)) {
+          classSurvived[pclass] = 0;
+        }
+        classSurvived[pclass]++;
+      }
+    });
+
+    let keys = [ "1", "2", "3"];
+
+    // Scale the range of the data in the domains
+    x.domain(keys);
+    y.domain([ 0, d3.max(keys, function(d) { return classDied[d]; }) ]);
+
+    // append the rectangles for the bar chart
+    svg.selectAll(".bar")
+        .data(keys)
+        .enter()
+        .append("rect")
+        .attr("class", "survived")
+        .attr("x", function(d) { return x(d); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(classSurvived[d]); })
+        .attr("height",
+              function(d) { return height - y(classSurvived[d]); });
+
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // add the y Axis
+    svg.append("g").call(d3.axisLeft(y));
+
+    svg.selectAll(".bar")
+        .data(keys)
+        .enter()
+        .append("rect")
+        .attr("class", "died")
+        .attr("x", function(d) { return x(d); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(classDied[d]); })
+        .attr("height", function(d) { return height - y(classDied[d]); });
+
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // add the y Axis
+    svg.append("g").call(d3.axisLeft(y));
 
   }
 }
