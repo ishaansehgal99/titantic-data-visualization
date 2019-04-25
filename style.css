@@ -51,6 +51,7 @@ body{
     font-weight:bold;
   margin:0;
   padding:0;
+<<<<<<< HEAD
 
   background: #fffcf9 url("ricepaper.jpg");
     background-size: 300px 300px;
@@ -65,6 +66,13 @@ body{
   fill: rgb(136, 135, 137);
   opacity: .4;
 
+=======
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+>>>>>>> 07888b1c411f06ddb5e2a5ca256f9e6ff4fc1bbb
 }
 
 .died{
