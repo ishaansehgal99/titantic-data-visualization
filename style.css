@@ -2,6 +2,8 @@
 html, body{
   width:100%;
   height:100%;
+  color: #231f20;
+
 }
 
 
@@ -49,20 +51,27 @@ body{
     font-weight:bold;
   margin:0;
   padding:0;
-  background-repeat: no-repeat;
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
 
-   background: linear-gradient(to left top, rgba(207, 20, 43, 0.9), rgba(0, 36, 125, 0.9)) fixed !important;
-   background: -webkit-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
-   background: -moz-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
-   background: -ms-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
-   background: -o-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
+  background: #fffcf9 url("ricepaper.jpg");
+    background-size: 300px 300px;
+    background-repeat: repeat;
+    line-height: 1.42857143;
+    overflow-x: hidden;
+    max-width: 100vw;
+
 }
 
+.survived{
+  fill: rgb(136, 135, 137);
+  opacity: .4;
 
+}
+
+.died{
+    fill: rgb(182, 115, 114);
+    opacity: .3;
+
+}
 
 #chart{
 
