@@ -49,17 +49,17 @@ body{
     font-weight:bold;
   margin:0;
   padding:0;
-  /* background-repeat: no-repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
 
-   background: linear-gradient(to left top, rgba(19, 41, 76, 0.9), rgba(232, 74, 39, 0.9)) fixed !important;
+   background: linear-gradient(to left top, rgba(207, 20, 43, 0.9), rgba(0, 36, 125, 0.9)) fixed !important;
    background: -webkit-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
    background: -moz-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
    background: -ms-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
-   background: -o-linear-gradient(to left top, #13294c, #e84a27) fixed !important; */
+   background: -o-linear-gradient(to left top, #13294c, #e84a27) fixed !important;
 }
 
 
@@ -76,6 +76,11 @@ body{
 
 circle {
 
+}
+
+h1{
+  margin-top:10px;
+  text-align: center;
 }
 
 img {
