@@ -33,10 +33,36 @@
     <div class = "container">
       <h1> Titanic Data Visualization </h1>
     </div>
+
+
+
+      <div class = "buttons">
+        <div class="btn-group btn-group-toggle" id="options" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="chart-button" value="chart" autocomplete="off" checked> Passengers
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="graph-button" value="graph" autocomplete="off"> Graphs
+          </label>
+        </div>
+
+        <div class="btn-group btn-group-toggle" id="graph-data" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="radio" name="graph-data" id="age-button" value="age" autocomplete="off" checked> Age
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="graph-data" id="gender-button" value="gender" autocomplete="off"> Gender
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="graph-data" id="family-button" value="family" autocomplete="off"> Family Size
+          </label>
+        </div>
+      </div>
+
+
+
+
     <div class="container">
-
-
-
       <!-- Our d3.js visualization will appear in #chart -->
 
         <div id = "graph">
@@ -51,26 +77,7 @@
 
 
     </div>
-    <div class="btn-group btn-group-toggle" id="options" data-toggle="buttons">
-      <label class="btn btn-secondary active">
-        <input type="radio" name="options" id="chart-button" value="chart" autocomplete="off" checked> Passengers
-      </label>
-      <label class="btn btn-secondary">
-        <input type="radio" name="options" id="graph-button" value="graph" autocomplete="off"> Graphs
-      </label>
-    </div>
 
-    <div class="btn-group btn-group-toggle" id="graph-data" data-toggle="buttons">
-      <label class="btn btn-secondary active">
-        <input type="radio" name="graph-data" id="age-button" value="age" autocomplete="off" checked> Age
-      </label>
-      <label class="btn btn-secondary">
-        <input type="radio" name="graph-data" id="gender-button" value="gender" autocomplete="off"> Gender
-      </label>
-      <label class="btn btn-secondary">
-        <input type="radio" name="graph-data" id="family-button" value="family" autocomplete="off"> Family Size
-      </label>
-    </div>
   </body>
 
 </html>

@@ -15,6 +15,7 @@ $(function() {
     function changeDisplay() {
       var displayRadioValue = $("input[name='options']:checked").val();
       if (displayRadioValue === "chart") {
+        console.log("Clearing Graph");
         clearGraph();
         visualize(data);
       } else {
@@ -44,7 +45,7 @@ $(function() {
 
 var clearGraph = function() {
   d3.select("#graph")
-    .selectAll("svg")
+    .selectAll("*")
     .remove();
 }
 
@@ -67,7 +68,7 @@ var drawGraph = function(data, type){
   // append the svg object to the body of the page
   // append a 'group' element to 'svg'
   // moves the 'group' element to the top left margin
-  var svg = d3.select("body")
+  var svg = d3.select("#graph")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)

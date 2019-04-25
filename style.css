@@ -49,9 +49,8 @@ html, body{
 body{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:bold;
-  margin:0;
+  margin-top:50px;
   padding:0;
-<<<<<<< HEAD
 
   background: #fffcf9 url("ricepaper.jpg");
     background-size: 300px 300px;
@@ -65,14 +64,6 @@ body{
 .survived{
   fill: rgb(136, 135, 137);
   opacity: .4;
-
-=======
-  background-repeat: no-repeat;
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
->>>>>>> 07888b1c411f06ddb5e2a5ca256f9e6ff4fc1bbb
 }
 
 .died{
@@ -84,6 +75,12 @@ body{
 #chart{
 
 
+}
+
+.buttons{
+  display:block;
+  text-align: center;
+  margin-top: 30px;
 }
 
 #graph{
